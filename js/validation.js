@@ -1,9 +1,9 @@
 import {isEscapeKey} from './util.js';
 
-const imgUploadInput = document.querySelector('.img-upload__input');//кнопка для лисенира
+const imgUploadInput = document.querySelector('.img-upload__input');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadBody = document.querySelector('body');
-const imgUploadСancel = document.querySelector('.img-upload__cancel'); //кнопка закрытия
+const imgUploadСancel = document.querySelector('.img-upload__cancel');
 const formElement = document.querySelector('.img-upload__form');
 const imgHashtags = document.querySelector('.text__hashtags');
 const imgPreview = document.querySelector('.img-upload__preview');
@@ -119,7 +119,6 @@ function resetForm() {
 formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
-  console.log('form is valid:', isValid);
 
   if (isValid) {
     const formData = new FormData(evt.target);
@@ -139,7 +138,6 @@ formElement.addEventListener('submit', (evt) => {
       })
       .catch((err) => {
         showErrorModal();
-        console.log(err);
       });
   } else {
     console.log('prisine:', pristine.getErrors());
@@ -210,7 +208,6 @@ const controlSmall = document.querySelector('.scale__control--smaller');
 const controlBig = document.querySelector('.scale__control--bigger');
 const controlValue = document.querySelector('.scale__control--value');
 
-
 function getControlValueAsNumber() {
   return Number.parseInt(controlValue.value.replace('%', ''), 10);
 }
@@ -226,7 +223,6 @@ controlBig.addEventListener('click', () => {
 });
 
 //эффекты
-
 effectLevelElement.classList.add('hidden');
 
 for (let i = 0; i < filterArray.length; i++) {
@@ -317,4 +313,3 @@ sliderElement.noUiSlider.on('update', () => {
     }
   }
 });
-// не забыть про вывоз сообщения
