@@ -11,8 +11,11 @@ const commentElement = document.querySelector('.text__description');
 const effectLevelElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectValueElement = document.querySelector('.effect-level__value');
-
 const filterArray = document.querySelectorAll('.effects__radio');
+const controlSmall = document.querySelector('.scale__control--smaller');
+const controlBig = document.querySelector('.scale__control--bigger');
+const controlValue = document.querySelector('.scale__control--value');
+const regHashtag = /^#[a-zа-яё0-9]{1,20}$/i;
 let isModalOpen = false;
 
 function openDownloadForm () {
@@ -57,7 +60,6 @@ function showSuccessModal() {
   document.body.appendChild(successTemplate.cloneNode(true));
 
   const modalElement = document.querySelector('.success');
-
   const successButton = document.querySelector('.success__button');//кнопка закрытия
 
   const closeModal = (evt) => {
@@ -89,7 +91,6 @@ function showErrorModal () {
   document.body.appendChild(successTemplate.cloneNode(true));
 
   const modalElement = document.querySelector('.error');
-
   const successButton = document.querySelector('.error__button');//кнопка закрытия
 
   const closeModal = () => {
@@ -136,11 +137,9 @@ formElement.addEventListener('submit', (evt) => {
         showSuccessModal();
         closeDownloadForm();
       })
-      .catch((err) => {
+      .catch(() => {
         showErrorModal();
       });
-  } else {
-    console.log('prisine:', pristine.getErrors());
   }
 
 });
@@ -186,8 +185,6 @@ pristine.addValidator(imgHashtags, () => {
   return true;
 }, 'Хэш-тэг не может быть длиннее 20 символов');
 
-const regHashtag = /^#[a-zа-яё0-9]{1,20}$/i;
-
 pristine.addValidator(imgHashtags, () => {
   if (imgHashtags.value === '') {
     return true;
@@ -204,9 +201,6 @@ pristine.addValidator(imgHashtags, () => {
 }, 'Хэш-тэг может состоять только из букв и цифр и должен начинаться с #');
 
 //масштаб
-const controlSmall = document.querySelector('.scale__control--smaller');
-const controlBig = document.querySelector('.scale__control--bigger');
-const controlValue = document.querySelector('.scale__control--value');
 
 function getControlValueAsNumber() {
   return Number.parseInt(controlValue.value.replace('%', ''), 10);
@@ -294,6 +288,7 @@ noUiSlider.create(sliderElement, {
   step: 25,
   connect: 'lower',
 });
+
 sliderElement.noUiSlider.on('update', () => {
   const value = sliderElement.noUiSlider.get();
   effectValueElement.value = value;

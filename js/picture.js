@@ -1,6 +1,9 @@
 import {compareNumeric, debounce, shuffle} from './util.js';
+
 const photosListElement = document.querySelector('.pictures');
 const PhotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const imgFilterSection = document.querySelector('.img-filters');
+const imgFilteFormElement = document.querySelector('.img-filters__form');
 
 const renderPhotos = (photos) => {
   const photosListFragment = document.createDocumentFragment();
@@ -19,9 +22,6 @@ const renderPhotos = (photos) => {
 
   photosListElement.appendChild(photosListFragment);
 };
-
-const imgFilterSection = document.querySelector('.img-filters');
-const imgFilteFormElement = document.querySelector('.img-filters__form');
 
 function showFilter(photos) {
   imgFilterSection.classList.remove('img-filters--inactive');
@@ -50,8 +50,9 @@ function showFilter(photos) {
     }
 
   };
-  const debouncedFilterClickHandler = debounce(filterClickHandler, 500);
+  const debouncedFilterClickHandler = debounce(filterClickHandler, 500);//магическая переменная д19?
 
   imgFilteFormElement.addEventListener('click', debouncedFilterClickHandler);
 }
+
 export { renderPhotos, showFilter };
